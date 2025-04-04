@@ -13,13 +13,9 @@ import gutterclean from './assets/gutterclean.jpg';
 import background from './assets/background.jpg';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
-
-
+import { Routes, Route, Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import React from 'react';
-
 import { MapPin, Phone, Mail, Star, ChevronRight, Shield, Droplets, Home, Power, Brush, Facebook, Instagram, Menu, X } from 'lucide-react';
 import ServiceCard from './components/ServiceCard';
 import ReviewCard from './components/ReviewCard';
@@ -414,38 +410,34 @@ setReviews(reviewList.reverse());
   );
 
   return (
-    <Router>
-
-
-      <div className="min-h-screen bg-gray-900 text-white pt-16">
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/customer-service" element={<CustomerServicePage sendEmail={sendEmail} />} />
-          <Route
-  path="/review"
-  element={
-    <ReviewPage
-      user={user}
-      loginWithGoogle={loginWithGoogle}
-      logout={logout}
-      newReview={newReview}
-      setNewReview={setNewReview}
-      handleReviewSubmit={handleReviewSubmit}
-      reviews={reviews}
-    />
-  }
-/>
-
-         
-
-
-
-        </Routes>
-        <ToastContainer position="top-center" />
-      </div>
-    </Router>
+    <div className="min-h-screen bg-gray-900 text-white pt-16">
+      <Navigation />
+      <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/customer-service" element={<CustomerServicePage sendEmail={sendEmail} />} />
+            <Route
+    path="/review"
+    element={
+      <ReviewPage
+        user={user}
+        loginWithGoogle={loginWithGoogle}
+        logout={logout}
+        newReview={newReview}
+        setNewReview={setNewReview}
+        handleReviewSubmit={handleReviewSubmit}
+        reviews={reviews}
+      />
+    }
+  />
+  
+           
+  
+  
+  
+          </Routes>   
+           <ToastContainer position="top-center" />
+    </div>
   );
 }
 
