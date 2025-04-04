@@ -414,7 +414,7 @@ setReviews(reviewList.reverse());
   );
 
   return (
-    <HashRouter>
+    <Router>
 
 
       <div className="min-h-screen bg-gray-900 text-white pt-16">
@@ -445,7 +445,7 @@ setReviews(reviewList.reverse());
         </Routes>
         <ToastContainer position="top-center" />
       </div>
-    </HashRouter>
+    </Router>
   );
 }
 
