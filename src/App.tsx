@@ -5,19 +5,26 @@ import { auth, provider } from "./firebaseConfig";
 import { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "./firebaseConfig";
-
+import image1 from './assets/image1.jpg';
+import image2 from './assets/image2.jpg';
+import image3 from './assets/image3.jpg';
+import image4 from './assets/image4.jpg';
+import gutterclean from './assets/gutterclean.jpg';
+import background from './assets/background.jpg';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 
 
 import emailjs from '@emailjs/browser';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
 import { MapPin, Phone, Mail, Star, ChevronRight, Shield, Droplets, Home, Power, Brush, Facebook, Instagram, Menu, X } from 'lucide-react';
 import ServiceCard from './components/ServiceCard';
 import ReviewCard from './components/ReviewCard';
 import Map from './components/Map';
-import AboutUs from './components/AboutUs';
-
+import AboutUs from './components/AboutUs'
 
 
 function App() {
@@ -76,31 +83,34 @@ function App() {
     e.preventDefault();
     console.log("Form submitted");
   
-    emailjs.sendForm(
-      'service_7bypp26', // Your Service ID
-      'template_dloj44v', // Your Template ID
-      e.target as HTMLFormElement, // Use the form directly
-      'JCcPGlv3NAc8iktNs' // Your Public Key
-    )
-    .then((result) => {
-      console.log('Email sent:', result.text);
-      alert('Message sent successfully!');
-    })
-    .catch((error) => {
-      console.error('Error:', error.text);
-      alert('Failed to send message. Please try again.');
-    });
+    emailjs
+      .sendForm(
+        'service_7bypp26',            // ✅ Your EmailJS Service ID
+        'template_dloj44v',           // ✅ Your EmailJS Template ID
+        e.target as HTMLFormElement,  // ✅ The form element
+        'JCcPGlv3NAc8iktNs'           // ✅ Your Public Key
+      )
+      .then((result) => {
+        console.log('Email sent:', result.text);
+        alert('Message sent successfully!');
+        (e.target as HTMLFormElement).reset();
+        // ✅ This clears the form fields after success
+        
+      })
+      .catch((error) => {
+        console.error('Error:', error.text);
+        alert('Failed to send message. Please try again.');
+      });
   };
-  
   
  
   
   const handleScheduleClick = () => {
-    const contactForm = document.getElementById('contact-form');
+    const contactForm = document.getElementById('contact-form-main');
     if (contactForm) {
       contactForm.scrollIntoView({ behavior: 'smooth' });
     } else {
-      window.location.href = '#contact-form';
+      window.location.href = '#contact-form-main';
     }
   };
 
@@ -109,33 +119,34 @@ function App() {
       title: 'Gutter Cleaning',
       icon: <Droplets className="w-8 h-8" />,
       description: 'Professional cleaning to ensure optimal water flow and prevent damage.',
-      image: './src/assets/image1.jpg'
+      image: image1,
     },
     {
       title: 'Gutter Guard Installation',
       icon: <Shield className="w-8 h-8" />,
       description: 'Premium protection systems to keep debris out while letting water flow.',
-      image: './src/assets/image2.jpg'
+      image: image2,
     },
     {
       title: 'Gutter Replacement',
       icon: <Home className="w-8 h-8" />,
       description: 'Complete gutter system installations with premium materials.',
-      image: 'https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?auto=format&fit=crop&q=80&w=800'
+      image: image3,
     },
     {
       title: 'Power Washing',
       icon: <Power className="w-8 h-8" />,
       description: 'High-pressure cleaning to restore your property\'s appearance.',
-      image: './src/assets/image4.jpg'
+      image: image4,
     },
     {
       title: 'Roof Cleaning',
       icon: <Brush className="w-8 h-8" />,
       description: 'Comprehensive roof maintenance for extended lifespan.',
-      image: './src/assets/gutterclean.jpg'
+      image: gutterclean,
     }
   ];
+  
 
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
@@ -190,8 +201,11 @@ setReviews(reviewList.reverse());
       await addDoc(collection(db, "reviews"), reviewWithDate); // save to Firestore
       setReviews([reviewWithDate, ...reviews]); // update UI
       setNewReview({ name: "", rating: 5, comment: "", image: "" }); // reset form
+      toast.success("Review submitted successfully!");
+
+
     } catch (err) {
-      console.error("Error adding review:", err);
+      toast.error("Something went wrong while submitting the review.");
       alert("Something went wrong while submitting the review.");
     }
   };
@@ -219,10 +233,10 @@ setReviews(reviewList.reverse());
             <Link to="/customer-service" className="text-white hover:text-[#FF204E] transition-colors">Customer Service</Link>
             <Link to="/review" className="text-white hover:text-[#FF204E] transition-colors"> Write a Review</Link>           
 
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#FF204E] transition-colors">
+            <a href="https://www.facebook.com/profile.php?id=61574891194230" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#FF204E] transition-colors">
               <Facebook className="w-6 h-6" />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#FF204E] transition-colors">
+            <a href="https://www.instagram.com/noomigutters?igsh=emxraTVqcHlqMTl1" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#FF204E] transition-colors">
               <Instagram className="w-6 h-6" />
             </a>
           </div>
@@ -263,10 +277,10 @@ setReviews(reviewList.reverse());
 
 
               <div className="flex space-x-4 py-2">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#FF204E] transition-colors">
+                <a href="https://www.facebook.com/profile.php?id=61574891194230" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#FF204E] transition-colors">
                   <Facebook className="w-6 h-6" />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#FF204E] transition-colors">
+                <a href="https://www.instagram.com/noomigutters?igsh=emxraTVqcHlqMTl1" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#FF204E] transition-colors">
                   <Instagram className="w-6 h-6" />
                 </a>
               </div>
@@ -282,11 +296,12 @@ setReviews(reviewList.reverse());
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
-            src="./src/assets/background.jpg"
-            alt="Hero background"
-            className="w-full h-full object-cover opacity-30"
-          />
+        <img
+  src={background}
+  alt="Hero background"
+  className="w-full h-full object-cover opacity-30"
+/>
+
           <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-gray-900"></div>
         </div>
         
@@ -298,15 +313,28 @@ setReviews(reviewList.reverse());
             Professional Gutter Solutions That Protect Your Home
           </p>
           <button 
-            onClick={() => window.location.href = '#contact-form'} 
-             className="bg-[#FF204E] hover:bg-[#FF204E]/90 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105">
-             Schedule Service Now 
-           </button>
-           <br />
-           <br />
-          <button  onClick={() => window.location.href = '#contact-form'} 
-             className="bg-[#FF204E] hover:bg-[#FF204E]/90 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105">
-            Reach Us for  free Estimate </button>
+  onClick={() => {
+    const el = document.getElementById('contact-form');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }} 
+  className="bg-[#FF204E] hover:bg-[#FF204E]/90 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105">
+  Schedule Service Now
+</button>
+
+<br /><br />
+
+<button 
+  onClick={() => {
+    const el = document.getElementById('contact-form');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }} 
+  className="bg-[#FF204E] hover:bg-[#FF204E]/90 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105">
+  Reach Us for Free Estimate
+</button>
         </div>
       </section>
 
@@ -373,7 +401,7 @@ setReviews(reviewList.reverse());
               </div>
             </div>
        
-            <form id="contact-form" onSubmit={sendEmail} className="space-y-6">
+            <form id="contact-form-main" onSubmit={sendEmail} className="space-y-6">
   <input type="text" name="user_name" placeholder="Your Name" className="w-full px-4 py-3 bg-gray-800 rounded-lg" required />
   <input type="email" name="user_email" placeholder="Your Email" className="w-full px-4 py-3 bg-gray-800 rounded-lg" required />
   <textarea name="message" placeholder="Your Message" rows={4} className="w-full px-4 py-3 bg-gray-800 rounded-lg" required></textarea>
@@ -386,7 +414,9 @@ setReviews(reviewList.reverse());
   );
 
   return (
-    <Router>
+    <HashRouter>
+
+
       <div className="min-h-screen bg-gray-900 text-white pt-16">
         <Navigation />
         <Routes>
@@ -413,8 +443,9 @@ setReviews(reviewList.reverse());
 
 
         </Routes>
+        <ToastContainer position="top-center" />
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 

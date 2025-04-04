@@ -41,7 +41,7 @@ const AboutUs: React.FC = () => {
             
             <div className="flex space-x-4">
               <a
-                href="https://www.instagram.com/noomigutters/"
+                href="https://www.facebook.com/profile.php?id=61574891194230"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-white hover:text-[#FF204E] transition-colors"
@@ -50,7 +50,7 @@ const AboutUs: React.FC = () => {
                 <span>Facebook</span>
               </a>
               <a
-                href="https://www.instagram.com/noomigutters/"
+                 href="https://www.instagram.com/noomigutters?igsh=emxraTVqcHlqMTl1" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-white hover:text-[#FF204E] transition-colors"
